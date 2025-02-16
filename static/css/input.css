@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes move-out {
+    from{
+        transform: translateY(0%);
+    }
+    to{
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes move-in {
+    from{
+        transform: translateY(100%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+}
+
+::view-transition-old(root) {
+  animation: move-out 300ms ease-in-out;
+  animation-timeline: scroll();
+  animation-range: 0px 100px;
+}
+
+::view-transition-new(root) {
+  animation: move-in 300ms ease-in-out;
+  animation-timeline: scroll();
+  animation-range: 0px 100px;
+}

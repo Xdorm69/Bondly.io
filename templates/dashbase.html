@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="view-transition" content="same-origin" />
+
+    <!--TAILWIND CSS-->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/output.css')}}"
+    />
+
+    <!--BONDLY ICON-->
+    <link
+      rel="shortcut icon"
+      href="https://cdn-icons-png.flaticon.com/128/1017/1017466.png"
+    />
+
+    <!--Poppins Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Bondly - {% block title %}{% endblock title %}</title>
+  </head>
+  <body class="bg-text_light min-h-screen">
+    <nav class="bg-transparent p-4 sticky top-0 backdrop-blur-md">
+      <div class="container">
+        <div class="flex justify-between items-center">
+          <div>
+            <a href="/dashboard" class="text-2xl font-bold text-black "
+              >Bondly</a
+            >
+          </div>
+          <ul class="flex items-center gap-4">
+            <li><a class="opacity-50 hover:opacity-100 transition" href="/orders">Orders</a></li>
+            <li><a class="opacity-50 hover:opacity-100 transition" href="/menu">Menu</a></li>
+            <li><a class="opacity-50 hover:opacity-100 transition" href="/customers">Customers</a></li>
+            <li><a class="opacity-50 hover:opacity-100 transition" href="/addorders">Add Order</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mx-auto px-4 py-8">
+      {% block body %}{% endblock body %}
+    </div>
+  </body>
+</html>

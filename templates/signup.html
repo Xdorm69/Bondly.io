@@ -1,0 +1,187 @@
+{% extends 'authbase.html' %} {% block title %} Signup {% endblock title %} {%
+block form %} {% if msg %}
+<h1
+  class="bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg"
+>
+  {{msg}}
+</h1>
+{% endif %}
+<form action="/signup" method="POST" class="flex flex-col gap-6 w-full">
+  <div class="w-full flex justify-between items-center px-3">
+    <h1 class="font-bold text-3xl text-center text-web_green">
+      Create Account
+    </h1>
+    <a
+      class="text-blue-500 mt-3 inv flex items-center hover:text-white hover:bg-black transition cursor-pointer p-2 bg-white shadow rounded-md"
+      href="/"
+      >Get back to home
+      <span class="ml-2"
+        ><img
+          src="/static/images/auth/home.png"
+          class="w-5 im transition"
+          alt="home"
+        />
+      </span>
+    </a>
+  </div>
+  <div>
+    <h1 class="pl-3 text-lg font-semibold">Name</h1>
+    <input
+      class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+      type="text"
+      name="name"
+      id="name"
+      placeholder="Enter name"
+    />
+  </div>
+  <div>
+    <h1 class="pl-3 text-lg font-semibold">Email</h1>
+    <input
+      class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Enter email"
+    />
+  </div>
+  <div>
+    <h1 class="pl-3 text-lg font-semibold">Create Password</h1>
+    <div
+      class="flex justify-between items-center w-full bg-gray-200 rounded-md"
+    >
+      <input
+        class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Create password"
+      />
+      <img
+        src="/static/images/auth/eye_open.png"
+        id="eye"
+        alt="eye"
+        class="w-6 h-6 cursor-pointer mr-3"
+      />
+    </div>
+  </div>
+  <div>
+    <h1 class="pl-3 text-lg font-semibold">Confirm Password</h1>
+
+    <input
+      class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+      type="password"
+      name="confirm_password"
+      id="confirm_password"
+      placeholder="Confirm password"
+    />
+  </div>
+
+  <div>
+    <h1 class="pl-3 text-lg font-semibold">Contact number</h1>
+    <div class="flex gap-2">
+      <div class="bg-gray-200 rounded-md flex items-center justify-center h-fit py-3 mt-1">
+        <select
+          name="country_code"
+          id="country_code"
+          class="mx-2 pl-8 border-none outline-none text-black bg-no-repeat bg-left bg-[url('/static/images/auth/flags/us.png')] bg-[length:30px] bg-transparent"
+          onchange="handleflag()"
+        >
+          <!-- <option value="+1">+1 United States</option>
+        <option value="+91">+91 India</option>
+        <option value="+44">+44 United Kingdom</option>
+        <option value="+1">+1 Canada</option>
+        <option value="+61">+61 Australia</option>
+        <option value="+65">+65 Singapore</option>
+        <option value="+852">+852 Hong Kong</option>
+        <option value="+86">+86 China</option>
+        <option value="+7">+7 Russia</option>
+        <option value="+81">+81 Japan</option>
+        <option value="+39">+39 Italy</option>
+        <option value="+33">+33 France</option>
+        <option value="+49">+49 Germany</option>
+        <option value="+34">+34 Spain</option> -->
+        </select>
+      </div>
+
+      <input
+        class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+        type="number"
+        name="number"
+        id="number"
+        placeholder="Enter contact number"
+      />
+    </div>
+  </div>
+
+  <div>
+    <button
+      class="bg-blue-500 mt-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      Signup
+    </button>
+  </div>
+</form>
+
+{% endblock form %} {% block linktext %} Already have an account? Signin {%
+endblock linktext %} {% block scripts %}
+<script>
+  const country_dict = {
+    "+1": "/static/images/auth/flags/us.png",
+    "+91": "/static/images/auth/flags/india.png",
+    "+44": "/static/images/auth/flags/uk.png",
+    "+61": "/static/images/auth/flags/australia.png",
+    "+65": "/static/images/auth/flags/singapore.png",
+    "+852": "/static/images/auth/flags/hongkong.png",
+    "+86": "/static/images/auth/flags/china.png",
+    "+7": "/static/images/auth/flags/russia.png",
+    "+81": "/static/images/auth/flags/japan.png",
+    "+39": "/static/images/auth/flags/italy.png",
+    "+33": "/static/images/auth/flags/france.png",
+    "+49": "/static/images/auth/flags/germany.png",
+    "+34": "/static/images/auth/flags/spain.png",
+  };
+
+  const country_code = document.querySelector("#country_code");
+  Object.entries(country_dict).forEach(([key, value]) => {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent =
+      key + " " + value.split("/").pop().split(".")[0].toUpperCase();
+    country_code.appendChild(option);
+  });
+
+  const handleflag = () => {
+    country_code.style.backgroundImage = `url('${
+      country_dict[country_code.value]
+    }')`;
+  };
+
+  const pass = document.querySelector("#password");
+  const eye = document.querySelector("#eye");
+  eye.addEventListener("click", (e) => {
+    const type = pass.getAttribute("type");
+    if (type === "password") {
+      pass.setAttribute("type", "text");
+      eye.src = "/static/images/auth/eye_close.png";
+    } else {
+      pass.setAttribute("type", "password");
+      eye.src = "/static/images/auth/eye_open.png";
+    }
+  });
+  const atag = document.querySelector(".inv");
+  const home = document.querySelector(".im");
+  atag.addEventListener("mouseover", () => {
+    home.classList.add("invert");
+  });
+  atag.addEventListener("mouseout", () => {
+    home.classList.remove("invert");
+  });
+  function changeFlag() {
+    const select = document.querySelector("#country_code");
+    const flagSrc = `/static/images/auth/flags/us.png`;
+    select.style.backgroundImage = `url('${flagSrc}')`;
+  }
+</script>
+
+{% endblock scripts %}

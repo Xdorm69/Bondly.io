@@ -1,0 +1,43 @@
+{% extends 'authbase.html' %} {% block title %} Change Password {% endblock title %} {%
+block form %}
+{% if msg %}
+  {% if msg|lower == "otp verified" %}
+    <h1 class="bg-green-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg">{{msg}}</h1>
+  {% else %}
+    <h1 class="bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg">{{msg}}</h1>
+  {% endif %}
+{% endif %}
+<form action="/changepassword" method="POST" class="flex flex-col gap-6 w-full">
+  <h1 class="font-bold text-3xl text-center text-web_green">Change Password</h1>
+
+  <div>
+    <h1 class="pl-3 text-xl font-semibold">New Password</h1>
+    <input
+      class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+      type="password"
+      name="password"ṅ
+      id="password"
+      placeholder="Enter password"
+    />
+  </div>
+  <div>
+    <h1 class="pl-3 text-xl font-semibold">Confirm Password</h1>
+    <input
+      class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+      type="password"
+      name="confirm_password"
+      id="confirm_password"
+      placeholder="Confirm password"
+    />
+  </div>
+  <div class="flex w-full justify-between items-center">
+    <button
+      class="bg-blue-500 mt-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+{% endblock form %} {% block linktext %}  {%
+endblock linktext %}

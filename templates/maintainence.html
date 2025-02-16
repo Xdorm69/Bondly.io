@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--TAILWIND CSS-->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/output.css')}}"
+    />
+    <!--Poppins Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!--CSS-->
+    <style>
+      @font-face {
+        font-family: "calisto";
+        src: url(/static/fonts/calisto-mt.ttf);
+      }
+    </style>
+    <!--Title-->
+    <title>Maintainence</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="flex justify-center h-screen w-full flex-col relative overflow-hidden">
+          <h1 class="font-calisto text-[130px] absolute top-1 p-1 text"></h1>
+          <div class="w-full flex items-center justify-center absolute top-0 left-0 ">
+            <img
+
+              class="w-[750px] jcb relative right-12"
+              src="{{url_for('static',filename='images/Maintainence/jcb.png')}}"
+            />
+          </div>
+          <a class="text-white w-full flex items-center justify-center hover:bg-gray-700 relative top-[320px] font-bold transition cursor-pointer p-2 bg-gray-400 shadow rounded-md" href="/">Redirect to Home</a>
+        </div>
+      </div>
+    </section>
+    <!--GSAP-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--SCROLLTRIGGER-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--SCRIPTS-->
+    <script src="{{url_for('static',filename='js/maintainence.js')}}"></script>
+  </body>
+</html>

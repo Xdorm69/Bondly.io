@@ -1,0 +1,94 @@
+{% extends 'authbase.html' %} {% block title %} Signin {% endblock title %} {%
+block form %} {% if msg %}
+<h1
+  class="bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg"
+>
+  {{msg}}
+</h1>
+{% endif %}
+<form action="/otp" method="POST" class="flex flex-col gap-6 w-full">
+  <h1 class="font-bold text-3xl text-center text-web_green">Verify Email</h1>
+  <div>
+    <h1 class="pl-3 text-xl font-semibold">OTP has been sent</h1>
+    <p class="pl-3 text-sm text-gray-500">Don't share your OTP with anyone</p>
+    <input
+      class="w-full text-center p-3 mt-2 rounded-md bg-gray-200 text-black"
+      type="number"
+      name="otp"
+      id="otp"
+      placeholder="Enter otp"
+    />
+    <a href="/resendotp" class="text-blue-500 resend hover:text-blue-700 cursor-pointer">Resend OTP</a>
+  </div>
+    <button
+      class="bg-blue-500 mt-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+{% endblock form %}
+
+{% block scripts %}
+    <script>
+        const resend = document.querySelector(".resend");
+        let msg = document.querySelector(".msg");
+        let click = true;
+        let timer = null;
+
+        // Create message element if it doesn't exist
+        if (!msg) {
+            msg = document.createElement("h1");
+            msg.className = "bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg";
+            const form = document.querySelector("form");
+            form.parentNode.insertBefore(msg, form);
+            msg.style.display = "none";
+        }
+        
+        async function handleResend() {
+            if (click) {
+                // Clear any existing timer
+                if (timer) {
+                    clearTimeout(timer);
+                }
+
+                click = false;
+                resend.classList.add("opacity-50", "cursor-not-allowed");
+                
+                try {
+                    // Make the request immediately
+                    const response = await fetch('/resendotp');
+                    if (response.ok) {
+                        msg.style.display = "block";
+                        msg.innerHTML = "OTP has been sent. Please wait for 1 minute before requesting again.";
+                        msg.className = "bg-yellow-600 p-3 msg text-white text-center rounded-md font-bold w-full mb-2 shadow-lg";
+                    } else {
+                        throw new Error('Failed to send OTP');
+                    }
+                } catch (error) {
+                    msg.style.display = "block";
+                    msg.innerHTML = "Failed to send OTP. Please try again.";
+                    msg.className = "bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg";
+                    // Reset the button immediately if there's an error
+                    click = true;
+                    resend.classList.remove("opacity-50", "cursor-not-allowed");
+                    return;
+                }
+                
+                // Start cooldown timer
+                timer = setTimeout(() => {
+                    click = true;
+                    resend.classList.remove("opacity-50", "cursor-not-allowed");
+                    msg.style.display = "none";
+                    timer = null;
+                }, 60000);
+            }
+        }
+
+        resend.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleResend();
+        });
+    </script>
+{% endblock scripts %}

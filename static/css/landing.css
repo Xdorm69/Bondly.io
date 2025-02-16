@@ -1,0 +1,12 @@
+
+
+
+@font-face {
+    font-family: "calisto";
+    src: url(/static/fonts/calisto-mt.ttf);
+}
+
+
+#nav-links{
+    font-family: 'poppins', sans-serif;
+}

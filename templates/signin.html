@@ -1,0 +1,121 @@
+{% extends 'authbase.html' %} {% block title %} Signin {% endblock title %} {%
+block form %} {% if msg %}
+<h1
+  class="bg-red-600 p-3 msg text-white rounded-md font-bold w-full mb-2 shadow-lg"
+>
+  {{msg}}
+</h1>
+{% endif %}
+<form action="/signin" method="POST" class="flex flex-col gap-6 w-full">
+  <div class="w-full flex justify-between items-center px-3">
+    <h1 class="font-bold text-3xl text-center text-web_green">Login</h1>
+    <a
+      class="text-blue-500 mt-3 inv flex items-center hover:text-white hover:bg-black transition cursor-pointer p-2 bg-white shadow rounded-md"
+      href="/"
+      >Get back to home
+      <span class="ml-2"
+        ><img
+          src="/static/images/auth/home.png"
+          class="w-5 im transition"
+          alt="home"
+        />
+      </span>
+    </a>
+  </div>
+  <div>
+    <h1 class="pl-3 text-xl font-semibold">Email</h1>
+    <input
+      class="w-full p-3 mt-2 rounded-md bg-gray-200 text-black"
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Enter email"
+      required
+    />
+  </div>
+  <div>
+    <h1 class="pl-3 text-xl font-semibold">Password</h1>
+    <div
+      class="flex justify-between items-center w-full bg-gray-200 rounded-md"
+    >
+      <input
+        class="w-full p-3 mt-1 rounded-md bg-gray-200 text-black"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Enter password"
+      />
+      <img
+        src="/static/images/auth/eye_open.png"
+        id="eye"
+        alt="eye"
+        class="w-6 h-6 cursor-pointer mr-3"
+      />
+    </div>
+    <a
+      href="/forgotpassword"
+      class="text-blue-500 hover:text-blue-700 cursor-pointer"
+      >Forgot Password?</a
+    >
+  </div>
+  <div class="flex w-full justify-between items-center">
+    <button
+      class="bg-blue-500 mt-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      Login
+    </button>
+    <div class="flex gap-4 items-center rounded-lg pl-5 py-2">
+      <a href="https://www.google.com/">
+        <img
+          class="w-8 object-cover"
+          src="/static/images/auth/google.png"
+          alt="google"
+        />
+      </a>
+      <a href="https://x.com/?lang=en&mx=2">
+        <img class="w-8 object-cover" src="/static/images/auth/x.png" alt="x" />
+      </a>
+      <a href="https://www.linkedin.com/feed/">
+        <img
+          class="w-8 object-cover"
+          src="/static/images/auth/linkedin.png"
+          alt="linkedin"
+        />
+      </a>
+      <a href="https://github.com/">
+        <img
+          class="w-12 object-cover right-3 relative"
+          src="/static/images/auth/github.png"
+          alt="github"
+        />
+      </a>
+    </div>
+  </div>
+</form>
+{% endblock form %} {% block linktext %} Don't have an account? Signup {%
+endblock linktext %} {% block scripts %}
+<script>
+  const pass = document.querySelector("#password");
+  const eye = document.querySelector("#eye");
+  eye.addEventListener("click", (e) => {
+    const type = pass.getAttribute("type");
+    if (type === "password") {
+      pass.setAttribute("type", "text");
+      eye.src = "/static/images/auth/eye_close.png";
+    } else {
+      pass.setAttribute("type", "password");
+      eye.src = "/static/images/auth/eye_open.png";
+    }
+  });
+
+  const atag = document.querySelector(".inv");
+  const home = document.querySelector(".im");
+  atag.addEventListener("mouseover", () => {
+    home.classList.add("invert");
+  });
+  atag.addEventListener("mouseout", () => {
+    home.classList.remove("invert");
+  });
+</script>
+{% endblock scripts %}

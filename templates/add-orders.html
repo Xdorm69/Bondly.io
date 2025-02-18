@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="view-transition" content="same-origin" />
+    <!--TAILWIND CSS-->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/output.css')}}"
+    />
+    <!--BONDLY ICON-->
+    <link
+      rel="shortcut icon"
+      href="https://cdn-icons-png.flaticon.com/128/1017/1017466.png"
+    />
+
+    <!--Poppins Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Title-->
+    <title>Bondly - {% block title %} {% endblock title %}</title>
+
+    <style>
+      input:focus-visible {
+        outline: none;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-full h-screen bg-gradient-to-t from-blue-500 to-blue-900">
+      <div class="container w-full h-full flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow p-8 w-[700px]">
+          <div class="flex flex-col items-center">
+            {% if msg %}
+                <h1 class="text-3xl font-bold mb-6 bg-red-500 text-white rounded-md p-3 w-full">{{msg}}</h1>                
+            {% endif %}
+            <h1 class="text-3xl font-bold mb-6">Add Order</h1>
+            <form action="/addorders" method="POST" class="flex flex-col w-full">
+              <div>
+                <h1 class="text-xl font-semibold">Customer Name</h1>
+                <input
+                  type="text"
+                  name="customer_name"
+                  id="customer_name"
+                  class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                />
+              </div>
+              <div>
+                <h1 class="text-xl font-semibold">Customer Phone</h1>
+                <input
+                  type="text"
+                  name="customer_phone"
+                  id="customer_phone"
+                  class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                />
+              </div>
+              <div>
+                <h1 class="text-xl font-semibold">Product Name</h1>
+                <input
+                  type="text"
+                  name="product_name"
+                  id="product_name"
+                  class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <h1 class="text-xl font-semibold">Product Quantity</h1>
+                  <input
+                    type="text"
+                    name="product_quantity"
+                    id="product_quantity"
+                    class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  />
+                </div>
+                <div>
+                  <h1 class="text-xl font-semibold">Product Price</h1>
+                  <div
+                    class="flex gap-4 bg-gray-200 text-black mt-2 mb-1 rounded-md"
+                  >
+                    <div
+                      class="w-[20px] font-bold text-3xl text-center opacity-50 flex justify-center items-center pl-3"
+                    >
+                      ₹
+                    </div>
+                    <input
+                      type="text"
+                      name="product_price"
+                      id="product_price"
+                      class="w-full p-3 bg-transparent"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h1 class="text-xl font-semibold">Order Date</h1>
+                  <input
+                    type="date"
+                    name="order_date"
+                    id="order_date"
+                    class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  />
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-4">
+                <div class="w-1/2">
+                  <h1 class="text-xl font-semibold">Order Type</h1>
+                  <select
+                    name="order_type"
+                    id="order_type"
+                    class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  >
+                    <option value="Delivery">Take-Away</option>
+                    <option value="Pickup">Dine-In</option>
+                  </select>
+                </div>
+                <div class="w-1/2">
+                  <h1 class="text-xl font-semibold">Estimated Time</h1>
+                  <div
+                    class="flex justify-between items-center w-full bg-gray-200 text-black mt-2 mb-1 rounded-md"
+                  >
+                    <input
+                      type="text"
+                      name="estimated_time"
+                      id="estimated_time"
+                      class="w-full p-3 bg-transparent"
+                    />
+
+                    <select
+                      name="time_unit"
+                      id="time_unit"
+                      class="bg-transparent text-xl font-semibold opacity-50 outline-none focus:outline-none focus:border-none"
+                    >
+                      <option value="min">min</option>
+                      <option value="hr">hr</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  class="w-full p-3 mt-4 rounded-md bg-blue-500 text-white font-semibold"
+                >
+                  Add Order
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

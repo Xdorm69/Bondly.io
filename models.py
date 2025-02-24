@@ -15,6 +15,7 @@ class User(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    admin_id = db.Column(db.Integer, db.ForeignKey('user.id', name='fk_order_user'), nullable=False)
     customer_name = db.Column(db.String(100), nullable=False)
     customer_phone = db.Column(db.String(10), nullable=False)
     product_name = db.Column(db.String(50), nullable=False)

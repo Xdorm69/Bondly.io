@@ -32,6 +32,18 @@
         border: none;
       }
     </style>
+    <script>
+      function validateForm() {
+        const inputs = document.querySelectorAll("input[required]");
+        for (let input of inputs) {
+          if (!input.value) {
+            alert("Please fill all the fields.");
+            return false;
+          }
+        }
+        return true;
+      }
+    </script>
   </head>
   <body>
     <div class="w-full h-screen bg-gradient-to-t from-blue-500 to-blue-900">
@@ -39,10 +51,19 @@
         <div class="bg-white rounded-lg shadow p-8 w-[700px]">
           <div class="flex flex-col items-center">
             {% if msg %}
-                <h1 class="text-3xl font-bold mb-6 bg-red-500 text-white rounded-md p-3 w-full">{{msg}}</h1>                
+            <h1
+              class="text-3xl font-bold mb-6 bg-red-500 text-white rounded-md p-3 w-full"
+            >
+              {{msg}}
+            </h1>
             {% endif %}
             <h1 class="text-3xl font-bold mb-6">Add Order</h1>
-            <form action="/addorders" method="POST" class="flex flex-col w-full">
+            <form
+              action="/addorders"
+              method="POST"
+              class="flex flex-col w-full"
+              onsubmit="return validateForm()"
+            >
               <div>
                 <h1 class="text-xl font-semibold">Customer Name</h1>
                 <input
@@ -50,6 +71,7 @@
                   name="customer_name"
                   id="customer_name"
                   class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  required
                 />
               </div>
               <div>
@@ -59,6 +81,7 @@
                   name="customer_phone"
                   id="customer_phone"
                   class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  required
                 />
               </div>
               <div>
@@ -68,6 +91,7 @@
                   name="product_name"
                   id="product_name"
                   class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                  required
                 />
               </div>
               <div class="flex items-center justify-between">
@@ -78,6 +102,7 @@
                     name="product_quantity"
                     id="product_quantity"
                     class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                    required
                   />
                 </div>
                 <div>
@@ -95,6 +120,7 @@
                       name="product_price"
                       id="product_price"
                       class="w-full p-3 bg-transparent"
+                      required
                     />
                   </div>
                 </div>
@@ -105,6 +131,7 @@
                     name="order_date"
                     id="order_date"
                     class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                    required
                   />
                 </div>
               </div>
@@ -116,6 +143,7 @@
                     name="order_type"
                     id="order_type"
                     class="w-full p-3 mt-2 mb-1 rounded-md bg-gray-200 text-black"
+                    required
                   >
                     <option value="Delivery">Take-Away</option>
                     <option value="Pickup">Dine-In</option>
@@ -131,6 +159,7 @@
                       name="estimated_time"
                       id="estimated_time"
                       class="w-full p-3 bg-transparent"
+                      required
                     />
 
                     <select

@@ -123,14 +123,11 @@ def register_routes(app, db):
         return redirect("/otp")
 
     @app.route("/forgotpassword", methods=["GET", "POST"])
-    def forgetpassword():
+    def forgotpassword():
         msg = None
+        color = "red"
         if request.method == "POST":
             email = request.form.get("email")
-            session["email"] = email
-            session["password"] = (
-                User.query.filter_by(email=email).first_or_404().password
-            )
             if not email:
                 msg = "Please enter your email"
                 print(msg)
@@ -215,7 +212,7 @@ def register_routes(app, db):
             return render_template(
                 "signin.html", msg="Please login to access dashboard"
             )
-        return render_template("orders.html")
+        return render_template("orders.html", orders=Order.query.all())  # Pass all orders to the template
 
     @app.route("/dashboard/customers")
     def customers():
@@ -247,9 +244,9 @@ def register_routes(app, db):
                 customer_name = request.form.get("customer_name")
                 customer_phone = request.form.get("customer_phone")
                 product_name = request.form.get("product_name")
-                quantity = request.form.get("quantity")
-                price = request.form.get("price")
-                date = request.form.get("date")
+                quantity = request.form.get("product_quantity")
+                price = request.form.get("product_price")
+                date = request.form.get("order_date")
                 order_type = request.form.get("order_type")
                 estimated_time = request.form.get("estimated_time")
                 status = "Pending"
@@ -267,9 +264,10 @@ def register_routes(app, db):
                         date,
                         order_type,
                         estimated_time,
+                        status,
                     ]
                 ):
-                    msg = ("Please fill all the fields")
+                    msg = "Please fill all the fields"
                     raise Exception("Please fill all the fields")
                 if len(customer_phone) != 10:
                     msg = "Phone number should be of 10 digits"
@@ -301,7 +299,7 @@ def register_routes(app, db):
                 return render_template(
                     "success.html",
                     return_msg="Order added successfully",
-                    link="/dashboard/addorders",
+                    link="/orders",
                 )
             except Exception as e:
                 print(f"Error: {e}")

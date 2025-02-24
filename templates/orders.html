@@ -1,25 +1,47 @@
-{% extends 'dashbase.html' %}
-{% block title %}Order{% endblock title %}
-
-{% block body %} 
+{% extends 'dashbase.html' %} {% block title %}Order{% endblock title %} {%
+block body %}
 
 <div class="">
-    <div class="w-full flex flex-wrap flex-row gap-4 py-10 bg-white">
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-    <div class="rounded-lg shadow bg-red-400 p-4 w-[355px] h-[200px]"></div>
-</div>
+  <div
+    class="w-full flex flex-wrap items-center justify-center flex-row gap-4 py-10 bg-white"
+  >
+    {% if orders %} {% for order in orders %}
+    <div
+      class="rounded-lg shadow transition hover:scale-105 {{ 'bg-orange-400' if order.order_type == 'Delivery' else 'bg-purple-400' }} {{ 'bg-green-400' if order.status == 'completed' else 'bg-yellow-400' }} p-4 w-[355px]  text-black"
+    >
+      <div class="font-bold items-center flex justify-between">
+        <h1 class="text-2xl">{{ order.id }}</h1>
+        <div class="flex gap-2 items-center">
+          <button
+            class="p-1 rounded-lg px-2 bg-green-400 hover:bg-green-700 transition duration-300 shadow text-white cursor-pointer text-md"
+          >
+            Update
+          </button>
+          <button
+            class="p-1 rounded-lg px-2 bg-red-400 hover:bg-red-700 transition duration-300 shadow text-white cursor-pointer text-md"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      
+      <div class="w-full flex justify-between items-center"><h1 class="font-semibold text-2xl">{{ order.product_name }}</h1> <div>Quantity : {{order.quantity}}</div></div>
+      <h1 class="text-lg">{{ order.order_date }}</h1>
+      <h1 class="text-lg">{{ order.order_type }}</h1>
+      <div class="w-full flex justify-between items-center">
+        <div class="flex gap-1 items-center">
+          <div class="text-lg">{{ order.estimated_time }}</div>
+          <h1>min</h1>
+        </div>
+
+        <div class="text-lg px-2 p-1 bg-blue-200 flex rounded-md w-fit">
+          {{ order.status }}
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <div>No orders available.</div>
+    {% endif %}
+  </div>
 </div>
 {% endblock body %}
